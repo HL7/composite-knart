@@ -9,8 +9,6 @@ http://wiki.hl7.org/index.php?title=Composite_KNART_Investigation
 
 * Project Facilitators
 
-** Emory Fry  eafry@cognitivemedicine.com
-
-** Jerry Goodnough jgoodnough@cognitivemedicine.com
-
-** Lorraine Constable lorraine@constable.ca
+Emory Fry  eafry@cognitivemedicine.com
+Jerry Goodnough jgoodnough@cognitivemedicine.com
+ Lorraine Constable lorraine@constable.ca
