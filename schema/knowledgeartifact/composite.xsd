@@ -79,7 +79,7 @@
 				<xs:element name="knowledgeDocument" type="KnowledgeDocument">
 					<xs:annotation/>
 				</xs:element>
-				<xs:element name="wrappedContentt" type="WrappedContent">
+				<xs:element name="wrappedContent" type="WrappedContent">
 					<xs:annotation/>
 				</xs:element>
 			</xs:choice>
