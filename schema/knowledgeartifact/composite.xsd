@@ -56,13 +56,17 @@
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="Manifest">
-		<xs:annotation/>
+		<xs:annotation>
+			<xs:documentation>The role of the manifest is to provide single access point that describes what is in the composite without incuring the cost of loading the full artifacts. The manifest should include basic type infomation, a summary of the artifacts contained within, and envelop security information like hashs and signatures.</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="artifactSummary" type="ArtifactSummary"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="ContainedArtifact">
-		<xs:annotation/>
+		<xs:annotation>
+			<xs:documentation>Set of contained artifacts</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="artifactType" type="ArtifactType">
 				<xs:annotation/>
