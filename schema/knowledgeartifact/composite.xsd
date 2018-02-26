@@ -14,7 +14,7 @@
 	<xs:include schemaLocation="enum/metadatabindingtype.xsd"/>
 	<xs:complexType name="Composite">
 		<xs:sequence>
-			<xs:element name="metadata" type="Metadata">
+			<xs:element name="metadata" type="Metadata" minOccurs="1" maxOccurs="1">
 				<xs:annotation/>
 			</xs:element>
 			<xs:element name="controlBlock" type="ControlBlock">
@@ -23,7 +23,7 @@
 			<xs:element name="manifest" type="Manifest">
 				<xs:annotation/>
 			</xs:element>
-			<xs:element name="containedArtifacts" type="ContainedArtifact">
+			<xs:element name="containedArtifacts" type="ContainedArtifact" minOccurs="1">
 				<xs:annotation/>
 			</xs:element>
 		</xs:sequence>
@@ -69,7 +69,10 @@
 			<xs:element name="context" type="Context">
 				<xs:annotation/>
 			</xs:element>
-			<xs:element name="metadataBinding" type="MetadataBindingType">
+			<xs:element name="eventBinding" type="EventBinding">
+				<xs:annotation/>
+			</xs:element>
+			<xs:element name="metadataBinding" type="MetadataBinding">
 				<xs:annotation/>
 			</xs:element>
 			<xs:choice>
@@ -136,6 +139,49 @@
 				<xs:annotation/>
 			</xs:element>
 			<xs:element name="userSeclected"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MetadataBinding">
+		<xs:annotation/>
+		<xs:sequence>
+			<xs:element name="type" type="MetadataBindingType">
+				<xs:annotation/>
+			</xs:element>
+			<xs:element name="bindings" type="SpecificMetadataBinding" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EventBinding">
+		<xs:annotation/>
+		<xs:sequence>
+			<xs:element name="bindingModel" type="xs:string">
+				<xs:annotation/>
+			</xs:element>
+			<xs:element name="bindings" type="SpecificEventBinding" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SpecificEventBinding">
+		<xs:annotation/>
+		<xs:sequence>
+			<xs:element name="externalEvent" type="xs:string">
+				<xs:annotation/>
+			</xs:element>
+			<xs:element name="action">
+				<xs:annotation/>
+			</xs:element>
+			<xs:element name="internalEvent" type="xs:string">
+				<xs:annotation/>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SpecificMetadataBinding">
+		<xs:annotation/>
+		<xs:sequence>
+			<xs:element name="action">
+				<xs:annotation/>
+			</xs:element>
+			<xs:element name="metadata" type="Metadata">
+				<xs:annotation/>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>
