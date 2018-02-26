@@ -29,18 +29,28 @@
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="ControlBlock">
-		<xs:annotation/>
+		<xs:annotation>
+			<xs:documentation>
+				</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="context" type="Context">
 				<xs:annotation/>
 			</xs:element>
 			<xs:element name="eventActivation">
-				<xs:annotation/>
+				<xs:annotation>
+					<xs:documentation>Defines the events that activate a this artifact and map to the behavior.</xs:documentation>
+				</xs:annotation>
 			</xs:element>
 			<xs:element name="propagation">
-				<xs:annotation/>
+				<xs:annotation>
+					<xs:documentation>Defines how events and data are proigated.</xs:documentation>
+				</xs:annotation>
 			</xs:element>
 			<xs:element name="mapping">
+				<xs:annotation/>
+			</xs:element>
+			<xs:element name="primaryArtifact">
 				<xs:annotation/>
 			</xs:element>
 		</xs:sequence>
@@ -166,7 +176,10 @@
 				<xs:annotation/>
 			</xs:element>
 			<xs:element name="action">
-				<xs:annotation/>
+				<xs:annotation>
+					<xs:documentation>Rename, Passthru, Suppress, Filter
+				</xs:documentation>
+				</xs:annotation>
 			</xs:element>
 			<xs:element name="internalEvent" type="xs:string">
 				<xs:annotation/>
