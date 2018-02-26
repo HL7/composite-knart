@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://www.exampleURI.com/HeD"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.exampleURI.com/HeD">
+	<xs:include schemaLocation="../ext/contributortypeext.xsd"/>
+	<xs:include schemaLocation="contributortypecore.xsd"/>
+
+	<xs:simpleType name="ContributorType">
+        <xs:annotation>
+        	<xs:documentation>Enumeration of roles that contribute to the development and maintenance of a knowledge artifact.</xs:documentation>
+        </xs:annotation>
+        <xs:union memberTypes="ContributorTypeCore ContributorTypeExt"/>
+	</xs:simpleType>
+</xs:schema>

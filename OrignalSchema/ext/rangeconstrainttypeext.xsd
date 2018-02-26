@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://www.exampleURI.com/HeD"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.exampleURI.com/HeD">
+	<xs:include schemaLocation="../enum/rangeconstrainttypecore.xsd"/>
+	<xs:simpleType name="RangeConstraintTypeExt">
+		<xs:restriction base="RangeConstraintTypeCore"/>
+	</xs:simpleType>
+</xs:schema>

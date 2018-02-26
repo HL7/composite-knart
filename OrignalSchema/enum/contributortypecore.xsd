@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://www.exampleURI.com/HeD"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.exampleURI.com/HeD">
+	<xs:simpleType name="ContributorTypeCore">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Author" />
+			<xs:enumeration value="Editor" />
+			<xs:enumeration value="Endorser" />
+			<xs:enumeration value="Reviewer" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+</xs:schema>

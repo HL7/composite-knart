@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://www.exampleURI.com/HeD"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.exampleURI.com/HeD">
+
+	<xs:simpleType name="ResourceRelationshipTypeCore">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AdaptedFrom"/>
+			<xs:enumeration value="AssociatedResource"/>
+			<xs:enumeration value="DependsOn"/>
+			<xs:enumeration value="DerivedFrom"/>
+			<xs:enumeration value="SimilarTo"/>
+			<xs:enumeration value="VersionOf"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>
