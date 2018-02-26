@@ -1,12 +1,5 @@
 <?xml version="1.0"?>
-<xs:schema 
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-	xmlns="urn:hl7-org:knowledgeartifact:r1" 
-	xmlns:elm="urn:hl7-org:elm:r1"
-	xmlns:sch="http://purl.oclc.org/dsdl/schematron" 
-	xmlns:xhtml="http://www.w3.org/1999/xhtml" 
-	targetNamespace="urn:hl7-org:knowledgeartifact:r1" 
-	elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:elm="urn:hl7-org:elm:r1" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>
 			This file defines the trigger components used in
@@ -69,6 +62,18 @@
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="Trigger"/>
+		</xs:complexContent>
+		<!-- This trigger type  should be distinguised, include a periods, and likely an identifer -->
+	</xs:complexType>
+	<xs:complexType name="NamedEventTrigger">
+		<xs:annotation>
+			<xs:documentation>A named event. 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="Trigger">
+				<xs:attribute name="name" type="xs:string"/>
+			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 </xs:schema>

@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by Emory Fry (Naval Health Research Center) -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1"
-	xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml"
-	xmlns:elm="urn:hl7-org:elm:r1" targetNamespace="urn:hl7-org:knowledgeartifact:r1"
-	elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:elm="urn:hl7-org:elm:r1" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>This file defines the root knowledge document type and
 			element.</xs:documentation>
@@ -13,7 +10,6 @@
 	<xs:include schemaLocation="action.xsd"/>
 	<xs:include schemaLocation="condition.xsd"/>
 	<xs:include schemaLocation="trigger.xsd"/>
-
 	<xs:complexType name="KnowledgeDocument">
 		<xs:annotation>
 			<xs:documentation>A knowledge document is an instance of a CDS knowledge artifact such
@@ -50,22 +46,19 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="codesystem" type="elm:CodeSystemDef" minOccurs="0"
-							maxOccurs="unbounded">
+						<xs:element name="codesystem" type="elm:CodeSystemDef" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>A code system definition that can be referenced
 									anywhere within the artifact.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="valueset" type="elm:ValueSetDef" minOccurs="0"
-							maxOccurs="unbounded">
+						<xs:element name="valueset" type="elm:ValueSetDef" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>A value set definition that can be referenced
 									anywhere within the artifact.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="parameter" type="elm:ParameterDef" minOccurs="0"
-							maxOccurs="unbounded">
+						<xs:element name="parameter" type="elm:ParameterDef" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>The parameter element define a parameters for the
 									knowledge document. Parameters are expected to be provided by
@@ -77,8 +70,7 @@
 									warrants the elicitation of a reminder.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="def" type="elm:ExpressionDef" minOccurs="0"
-							maxOccurs="unbounded">
+						<xs:element name="def" type="elm:ExpressionDef" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>The named expression used to retrieve external
 									data. For instance, an expression to retrieve patient
@@ -86,8 +78,7 @@
 									SNOMED-CT code from a terminology server.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="trigger" type="Trigger" minOccurs="0"
-							maxOccurs="unbounded">
+						<xs:element name="trigger" type="Trigger" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>The trigger element represents an event that
 									'triggers' the knowledge artifact. For instance, 'evaluate this
@@ -109,10 +100,14 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="def" type="elm:ExpressionDef" minOccurs="0"
-							maxOccurs="unbounded"/>
+						<xs:element name="def" type="elm:ExpressionDef" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:complexType>
+			</xs:element>
+			<xs:element name="triggers" type="Triggers" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The triggers section defines the list of all triggers that 'activate' or 'trigger' the CDS knowledge artifact. For instance, opening a patient record may trigger a rule to execute if the conditions of the rule are met. </xs:documentation>
+				</xs:annotation>
 			</xs:element>
 			<xs:element name="conditions" type="Conditions" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
@@ -145,5 +140,4 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-
 </xs:schema>

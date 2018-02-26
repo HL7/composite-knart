@@ -1,8 +1,5 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1"
-	xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:elm="urn:hl7-org:elm:r1"
-	xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-	targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:dt="urn:hl7-org:cdsdt:r2" xmlns:elm="urn:hl7-org:elm:r1" xmlns:sch="http://purl.oclc.org/dsdl/schematron" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation> This file defines the Action types used to describe guidance within a
 			knowledge artifact. </xs:documentation>
@@ -12,6 +9,7 @@
 	<xs:include schemaLocation="base.xsd"/>
 	<xs:include schemaLocation="behavior.xsd"/>
 	<xs:include schemaLocation="actor.xsd"/>
+	<xs:include schemaLocation="enum/eventtype.xsd"/>
 	<xs:include schemaLocation="catalogitem.xsd"/>
 	<xs:include schemaLocation="condition.xsd"/>
 	<xs:complexType name="ActionBase" abstract="true">
@@ -220,8 +218,7 @@
 		<xs:complexContent>
 			<xs:extension base="AtomicAction">
 				<xs:sequence>
-					<xs:element name="actionSentence" type="elm:Expression" minOccurs="0"
-						maxOccurs="1">
+					<xs:element name="actionSentence" type="elm:Expression" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The parameters of the action that is to be executed.
 								For example, an action may be to order a medication.
@@ -272,10 +269,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<!-- BTR: It's not clear how this would be used, it doesn't seem that there is enough information to enable eventing.
-		At a minimum, we would need to be able to name the event so that it could be surfaced in an event bus and subscribed. 
-		Propose that for now, the action be removed until an example can be developed that illustrates usage. -->
-	<!--xs:complexType name="FireEventAction">
+	<xs:complexType name="FireEventAction">
 		<xs:annotation>
 			<xs:documentation>This action fires an event. The event can serve as
 				a trigger to another artifact.
@@ -290,7 +284,7 @@
 							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="actionSentence" type="Expression" minOccurs="0" maxOccurs="1">
+					<xs:element name="actionSentence" type="elm:Expression" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The action sentence is the payload of the
 								event. Another artifact receives this payload as an input.
@@ -300,7 +294,7 @@
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
-	</xs:complexType-->
+	</xs:complexType>
 	<xs:complexType name="DeclareResponseAction">
 		<xs:annotation>
 			<xs:documentation> The DeclareResponseAction provides a mechanism to declare a container
@@ -349,8 +343,7 @@
 								collected from the user. </xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="initialValue" type="elm:Expression" minOccurs="0"
-						maxOccurs="1">
+					<xs:element name="initialValue" type="elm:Expression" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>An expression to compute an initial value for the
 								documentation concept. The initial value could be computed from
@@ -358,8 +351,7 @@
 								in the external data </xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="responseBinding" type="ResponseBinding" minOccurs="0"
-						maxOccurs="1">
+					<xs:element name="responseBinding" type="ResponseBinding" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Defines the response binding for the documentation
 								item.</xs:documentation>
