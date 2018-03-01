@@ -14,14 +14,16 @@
 	<xs:include schemaLocation="enum/metadatabindingtype.xsd"/>
 	<xs:complexType name="Composite">
 		<xs:sequence>
-			<xs:element name="metadata" type="Metadata" minOccurs="1" maxOccurs="1">
+			<xs:element name="metadata" type="Metadata">
 				<xs:annotation/>
 			</xs:element>
-			<xs:element name="controlBlock" type="ControlBlock">
+			<xs:element name="controlBlock" type="ControlBlock" minOccurs="0">
 				<xs:annotation/>
 			</xs:element>
 			<xs:element name="manifest" type="Manifest">
-				<xs:annotation/>
+				<xs:annotation>
+					<xs:documentation>Provides a summary location and content metadata and a single access point for stream</xs:documentation>
+				</xs:annotation>
 			</xs:element>
 			<xs:element name="containedArtifacts" type="ContainedArtifact" minOccurs="1">
 				<xs:annotation/>
@@ -30,28 +32,29 @@
 	</xs:complexType>
 	<xs:complexType name="ControlBlock">
 		<xs:annotation>
-			<xs:documentation>
-				</xs:documentation>
+			<xs:documentation>Control information on how the artifact is expected to operate,This includes </xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="context" type="Context">
+			<xs:element name="context" type="Context" minOccurs="0">
 				<xs:annotation/>
 			</xs:element>
-			<xs:element name="eventActivation">
+			<xs:element name="eventActivation" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Defines the events that activate a this artifact and map to the behavior.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="propagation">
+			<xs:element name="propagation" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Defines how events and data are proigated.</xs:documentation>
+					<xs:documentation>Defines how events and data are progated.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="mapping">
+			<xs:element name="mapping" minOccurs="0">
 				<xs:annotation/>
 			</xs:element>
-			<xs:element name="primaryArtifact">
-				<xs:annotation/>
+			<xs:element name="controllingArtifact" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The artifact which acts as the principle orchestrator/controller of the composite.</xs:documentation>
+				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
@@ -71,7 +74,7 @@
 			<xs:element name="artifactType" type="ArtifactType">
 				<xs:annotation/>
 			</xs:element>
-			<xs:element name="naming">
+			<xs:element name="name">
 				<xs:annotation/>
 			</xs:element>
 			<xs:element name="identifier">
@@ -83,13 +86,13 @@
 			<xs:element name="context" type="Context">
 				<xs:annotation/>
 			</xs:element>
-			<xs:element name="eventBinding" type="EventBinding">
+			<xs:element name="eventBinding" type="EventBinding" minOccurs="0">
 				<xs:annotation/>
 			</xs:element>
-			<xs:element name="metadataBinding" type="MetadataBinding">
+			<xs:element name="metadataBinding" type="MetadataBinding" minOccurs="0">
 				<xs:annotation/>
 			</xs:element>
-			<xs:choice>
+			<xs:choice maxOccurs="unbounded">
 				<xs:element name="reference" type="Reference">
 					<xs:annotation/>
 				</xs:element>
@@ -100,12 +103,31 @@
 					<xs:annotation/>
 				</xs:element>
 			</xs:choice>
+			<xs:element name="mustUnderstand"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="Context"/>
-	<xs:complexType name="ArtifactSummary"/>
+	<xs:complexType name="Context">
+		<xs:annotation>
+			<xs:documentation>Defintion of a context, usage is contextual and include intended use, user, authoring environment, and environement etc.</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="ArtifactSummary">
+		<xs:annotation>
+			<xs:documentation>Summary of a single contained or referenced artifact</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name"/>
+			<xs:element name="Identifier"/>
+			<xs:element name="ArtifactType"/>
+			<xs:element name="Size"/>
+			<xs:element name="Hash"/>
+			<xs:element name="Signatures"/>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="Reference">
-		<xs:annotation/>
+		<xs:annotation>
+			<xs:documentation>Reference to an Artifact outside of the packing of the composite.</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="url">
 				<xs:annotation/>
@@ -116,7 +138,9 @@
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="WrappedContent">
-		<xs:annotation/>
+		<xs:annotation>
+			<xs:documentation>Base64 Encoded artifact that can be from an open set of types</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="contentSignifier" type="ContentSignifier">
 				<xs:annotation/>
@@ -178,13 +202,14 @@
 			</xs:element>
 			<xs:element name="eventBindingType">
 				<xs:annotation>
-					<xs:documentation>Rename, Passthru, Suppress, Filter, Restates
+					<xs:documentation>Recast, Passthru, Suppress, Filter, Restates
 				</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="internalEvent" type="xs:string">
 				<xs:annotation/>
 			</xs:element>
+			<xs:element name="mutability"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="SpecificMetadataBinding">
