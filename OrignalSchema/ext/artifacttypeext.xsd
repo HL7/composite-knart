@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<xs:schema elementFormDefault="qualified" targetNamespace="http://www.exampleURI.com/HeD"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.exampleURI.com/HeD">
-	<xs:include schemaLocation="../enum/artifacttypecore.xsd"/>
-	<xs:simpleType name="ArtifactTypeExt">
-		<xs:restriction base="ArtifactTypeCore"/>
-	</xs:simpleType>
-</xs:schema>
