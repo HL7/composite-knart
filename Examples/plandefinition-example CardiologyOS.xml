@@ -368,7 +368,7 @@
          </code>
       </Substance>
    </contained>  
-  <url value="http://va.gov/kas/orderset/B5-Cardiology-ChestPainCAD"/>
+  <url value="http://va.gov/kas/orderset/B5-Cardiology-ChestPainCAD-OS"/>
   <identifier>
      <!--identifierName="B5" -->
     <use value="official"/>
@@ -387,7 +387,7 @@
    </identifier>
   <version value="0.1"/>
   <name value="ChestPainCoronaryArteryDiseaseOrderSetKNART"/>
-  <title value="Chest Pain (CP) / Coronary Artery Disease (CAD) Order Set KNART"/>
+  <title value="Chest Pain (CP) - Coronary Artery Disease (CAD) Order Set KNART"/>
   <type>
     <coding>
       <system value="http://hl7.org/fhir/plan-definition-type"/>
@@ -405,8 +405,7 @@
     provide a structured documentation template for the process. Stable patients with cardiac
     chest pain require risk stratification, office-based workup, initiation of disease-specific
     medications, and subspecialty referral to a cardiologist."/>
-  <usage value="The Cardiology chest pain (CP) and coronary artery disease (CAD) group of KNARTs are intended to assist primary care providers in the management of adult patients with stable chest pain (with or without known CAD); aid in determining when a cardiology consultation is appropriate; provide guidance for initial noninvasive diagnostic orders (stress testing) and provide a structured documentation template for the process. Stable patients with cardiac chest pain require risk stratification, office-based workup, initiation of disease-specific medications, and subspecialty referral to a cardiologist. This context excludes emergent patients (new/ongoing/unstable pattern CP). Included are those patients with stable CP with or without known CAD, to be considered for evaluation by cardiology."/>
- 
+  
   <useContext>
     <code>
       <system value="http://hl7.org/fhir/usage-context-type"/>
@@ -420,6 +419,8 @@
       </coding>
     </valueCodeableConcept>
   </useContext>
+   
+   <usage value="The Cardiology chest pain (CP) and coronary artery disease (CAD) group of KNARTs are intended to assist primary care providers in the management of adult patients with stable chest pain (with or without known CAD); aid in determining when a cardiology consultation is appropriate; provide guidance for initial noninvasive diagnostic orders (stress testing) and provide a structured documentation template for the process. Stable patients with cardiac chest pain require risk stratification, office-based workup, initiation of disease-specific medications, and subspecialty referral to a cardiologist. This context excludes emergent patients (new/ongoing/unstable pattern CP). Included are those patients with stable CP with or without known CAD, to be considered for evaluation by cardiology."/>
   
   <contributor>
     <type value="author"/>
