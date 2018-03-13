@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by Emory Fry (Naval Health Research Center) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:knowledgeartifact:r1" xmlns:elm="urn:hl7-org:elm:r1" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="urn:hl7-org:knowledgeartifact:r1" elementFormDefault="qualified">
+	<xs:include schemaLocation="base.xsd"/>
 	<xs:annotation>
 		<xs:documentation>
 			This file defines the trigger components used in
@@ -19,6 +21,12 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="identifiers" type="VersionedIdentifier" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>An indentier for the the Trigger/Event</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="textEquivalent" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="Triggers">
