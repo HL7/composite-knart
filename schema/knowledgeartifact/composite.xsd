@@ -48,7 +48,7 @@
 					<xs:documentation>Defines how events and data are progated.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="mapping" minOccurs="0">
+			<xs:element name="mapping" type="MappingType" minOccurs="0">
 				<xs:annotation/>
 			</xs:element>
 			<xs:element name="controllingArtifact" minOccurs="0">
@@ -56,6 +56,11 @@
 					<xs:documentation>The artifact which acts as the principle orchestrator/controller of the composite.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MappingType">
+		<xs:sequence>
+			<xs:element name="componentEventMappings" type="ComponentEventBinding"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="Manifest">
@@ -103,7 +108,8 @@
 					<xs:annotation/>
 				</xs:element>
 			</xs:choice>
-			<xs:element name="mustUnderstand"/>
+			<xs:element name="mustUnderstand" minOccurs="0"/>
+			<xs:element name="OnCompletion" type="Event" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="Context">
@@ -191,13 +197,35 @@
 			<xs:element name="bindingModel" type="xs:string">
 				<xs:annotation/>
 			</xs:element>
-			<xs:element name="bindings" type="SpecificEventBinding" minOccurs="0"/>
+			<xs:element name="incomingBindings" type="SpecificEventBinding" minOccurs="0"/>
+			<xs:element name="outgoingBindings" type="SpecificEventBinding" minOccurs="0"/>
+			<xs:element name="triggers" type="TriggerBindings" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ComponentEventMappings">
+		<xs:sequence>
+			<xs:element name="componentId" minOccurs="1"/>
+			<xs:element name="binding" minOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ComponentEventBinding">
+		<xs:annotation/>
+		<xs:sequence>
+			<xs:element name="bindingModel" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Shared, Encapsulated</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="componentId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="incomingBindings" type="SpecificEventBinding" minOccurs="0"/>
+			<xs:element name="outgoingBindings" type="SpecificEventBinding" minOccurs="0"/>
+			<xs:element name="triggers" type="TriggerBindings" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="SpecificEventBinding">
 		<xs:annotation/>
-		<xs:sequence>
-			<xs:element name="externalEvent" type="xs:string">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ConatinerEvent" type="xs:string">
 				<xs:annotation/>
 			</xs:element>
 			<xs:element name="eventBindingType">
@@ -206,7 +234,7 @@
 				</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="internalEvent" type="xs:string">
+			<xs:element name="ComponentEvent" type="xs:string">
 				<xs:annotation/>
 			</xs:element>
 			<xs:element name="mutability"/>
@@ -223,4 +251,13 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="TriggerBindings">
+		<xs:annotation/>
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="trigger" type="Trigger">
+				<xs:annotation/>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Event"/>
 </xs:schema>
