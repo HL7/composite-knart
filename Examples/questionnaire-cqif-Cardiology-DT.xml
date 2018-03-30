@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Questionnaire xmlns="http://hl7.org/fhir">
+  <id value="B35-Cardiology-ChestPainCAD-CRDT-KNART"/>
+  <meta>
+    <profile value="http://hl7.org/fhir/StructureDefinition/cqif-questionnaire"/>
+  </meta>
+  <text>
+    <status value="generated"/>
+    <div xmlns="http://www.w3.org/1999/xhtml">B35-Cardiology-ChestPainCAD Documentation
+      Template</div>
+  </text>
+  <extension url="http://hl7.org/fhir/StructureDefinition/cqif-library">
+    <valueReference>
+      <reference value="Library/cardiology-dt-logic"/>
+    </valueReference>
+  </extension>
+  <url value="http://va.gov/kas/orderset/B35-Cardiology-ChestPainCAD-DT"/>
+  <identifier>
+    <!--identifierName="B35" -->
+    <use value="official"/>
+    <system value="urn:va.gov:kbs:knart:artifact:r1"/>
+    <value value="cdf88754-ad05-53d2-a87d-1a959a52c8cb"/>
+  </identifier>
+  <!--other identifiers removed -->
+  <version value="0.1"/>
+  <title value="Chest Pain (CP) / Coronary Artery Disease (CAD) Documentation Template"/>
+  <status value="draft"/>
+  <subjectType value="Patient"/>
+  <date value="2018-03-07"/>
+  <publisher value="Department of Veterans Affairs"/>
+
+  <useContext>
+    <code>
+      <system value="http://hl7.org/fhir/usage-context-type"/>
+      <code value="age"/>
+    </code>
+    <valueCodeableConcept>
+      <coding>
+        <system value="TSR"/>
+        <code value="TSR"/>
+        <display value="Population 18 years old or older"/>
+      </coding>
+    </valueCodeableConcept>
+  </useContext>
+  <useContext>
+    <code>
+      <system value="http://hl7.org/fhir/usage-context-type"/>
+      <code value="focus"/>
+    </code>
+    <valueCodeableConcept>
+      <coding>
+        <system value="http://snomed.info/sct"/>
+        <code value="look up value"/>
+        <display value="appropriate snomed condition"/>
+        <!-- Adult with stable chest pain being considered for cardiology consultation (excluding unstable symptoms and acute coronary syndromes) -->
+      </coding>
+    </valueCodeableConcept>
+  </useContext>
+  <useContext>
+    <code>
+      <system value="http://hl7.org/fhir/usage-context-type"/>
+      <code value="venue"/>
+    </code>
+    <valueCodeableConcept>
+      <coding>
+        <system value="TSR"/>
+        <code value="TSR"/>
+        <display value="Outpatient"/>
+      </coding>
+    </valueCodeableConcept>
+  </useContext>
+  <useContext>
+    <code>
+      <system value="http://hl7.org/fhir/usage-context-type"/>
+      <code value="user"/>
+    </code>
+    <valueCodeableConcept>
+      <coding>
+        <system value="TSR"/>
+        <code value="TSR"/>
+        <display value="Provider in a Primary Care Clinic"/>
+      </coding>
+    </valueCodeableConcept>
+  </useContext>
+  <useContext>
+    <code>
+      <system value="http://hl7.org/fhir/usage-context-type"/>
+      <code value="workflow"/>
+      <!--this code is for WorkFlow setting, not business flow -->
+    </code>
+    <valueCodeableConcept>
+      <coding>
+        <system value="TSR"/>
+        <code value="TSR"/>
+        <display value="Primary Care"/>
+      </coding>
+    </valueCodeableConcept>
+  </useContext>
+  <copyright
+    value="&#xA9; Copyright Cognitive Medical Systems, Inc. 9444 Waples Street Suite 300 San Diego, CA 92121"/>
+  <!-- There is no place in the resource for relatedResources, Supporting Evidence or Contributors. Need to define extensions and add to the profile to handle these -->
+  <!--made up a numbering scheme for item LinkId's, which are mandatory -->
+  <item>
+    <!--Top Level Action Group -->
+    <linkId value="A10"/>
+    <type value="group"/>
+    <item>
+      <linkId value="B10"/>
+      <type value="group"/>
+      <text value="Clinical Stability Assessment"/>
+      <item>
+        <linkId value="C10"/>
+        <text value="This documentation template is not applicable for unstable patients"/>
+        <type value="display"/>
+      </item>
+       <item>
+         <linkId value="ongoingRestingChestPain"/>
+         <text value="Ongoing resting chest pain for > 20 minutes with ST elevation or depression on ECG"/>
+         <type value="boolean"/>
+       </item>
+      <item>
+        <linkId value="onsetOfNewRestingChestPain"/>
+        <text value="Onset of new resting chest pain episodes within the past week"/>
+        <type value="boolean"/>
+      </item>
+      <item>
+        <linkId value="onsetOfRecurrentChestPain"/>
+        <text value="New onset, recurrent chest pain with minimal exertion over the past 2 months"/>
+        <type value="boolean"/>
+      </item>
+      <item>
+        <linkId value="previouslyStableExertionalAngina"/>
+        <text value="Previously stable exertional angina now occurring with minimal activity over the past 2 months"/>
+        <type value="boolean"/>
+      </item>
+    </item>
+    <item>
+      <!-- need a calculated value based on the answers above
+      (-->
+      <extension url="http://hl7.org/fhir/StructureDefinition/cqif-calculatedValue">
+        <valueString value="(ongoingRestingChestPain And onsetofNewRestingChestPain) Or (onsetofRecurrentChestPain And previouslyStableExertionalAngina)"/>
+      </extension>
+      <linkid value="PatientUnstable" />
+      <text value="Assess Patient Stability" />
+      <type value="boolean" />
+      <item>
+        <linkId value="patientStability" />
+        <text value="This documentation template is not applicable for use with patients who are unstable based on clinician judgement. Examples of unstable patients include, but are not limited to, patients with chest pain pattern suggestive of ACS (e.g., those with new onset resting CP, CP with minimal exertion, new unstable angina pattern, ST-segment elevation, non–ST-segment elevation myocardial infarction on ECG, or suspected aortic dissection), and patients with any of the following symptoms or findings:" />
+        <type value="group" />
+        <enableWhen> 
+          <question value="PatientUnstable"/> 
+          <operator value="="/> 
+          <answerBoolean value="true" /> 
+        </enableWhen> 
+        <item>
+          <linkId value="TransfertoEmergencyCare" />
+        <!-- Need a CreateAction itme here to transfer to Hospital-based outpatient emergency care centre 
+        classType="anf:AdmissionOfEnvironmentAction"-->
+          <code> 
+            <system value="http://snomed.info/sct"/> 
+            <code value="73770003"/> 
+            <display value="Hospital-based outpatient emergency care center"/> 
+          </code> 
+        </item>
+        <item>
+          <linkId value="patientWasUnstable" />
+          <text value="Rationale for determining that the patient was unstable, noting that the patient was transferred to the nearest emergency department immediately." />
+          <type value="string" />
+        </item>
+      </item>
+      <!-- now add group for when patient is stable -->
+      <item>
+        <linkId value="PatientStable" />
+        <text value="For a stable patient: The user will continue with the documentation template." />
+        <type value="group" />
+        <enableWhen> 
+          <question value="PatientUnstable"/> 
+          <operator value="="/> 
+          <answerBoolean value="false" /> 
+        </enableWhen> 
+        <item>
+          <linkId value="D10"/>
+          <text value="Coronary Artery Disease Risk" />
+          <type value="group"/>
+          <!-- In the source, the first item was a CreateAction to add a link to the American Heart Association Risk Calculator -->
+          <item>
+            <linkId value="10YearRisk"></linkId>
+            <text value="Patient’s 10-Year Cardiovascular Disease Risk"/>
+            <type value="string"/>
+          </item>
+        </item>
+        <item>
+          <linkId value="D20"/>
+          <text value="History and Physical" />
+          <type value="group"/>
+          <!-- enter HxP questions here (only some are represented to provide examples, source has many more-->
+          <item>
+            <linkId value="HistoryBrief"/>
+            <text value="History, Brief - describing symptoms, HPI"/>
+            <type value="string"/>
+          </item>
+          <item>
+            <extension url="http://hl7.org/fhir/StructureDefinition/cqif-initial.Value">
+              <valueString value="priorCardiacDiagnosticProcedures"/>
+            </extension>
+            <linkId value="PriorDiagnosticProcedures"/>
+            <text value="Results of prior cardiac diagnostic procedures performed (resting ECG, echocardiogram, stress testing (echo, nuclear, MRI), CCT or angiography)" />
+            <!-- This was a Tuple in KAS, but no matching response type -->
+            <type value="string" />
+            <repeats value="true" />
+          </item>
+        </item>
+        <item>
+          <linkId value="D30"/>
+          <text value="Treatment Provided" />
+          <type value="group"/>
+          <!-- enter Treatment questions here -->
+        </item>
+        <item>
+          <linkId value="D40"/>
+          <text value="Laboratory Studies" />
+          <type value="group"/>
+          <item>
+            <!-- Need to use another item as display to get the description text from the original in -->
+            <linkId value="E10"/>
+            <text value="Each item in this section needs to include an expression, and a model (phenomenon testing result, thyroid result testing
+              function measurement date within an interval of now to two years ago" />
+            <type value="display"/>
+          </item>
+          <!-- enter Lab questions here -->
+        </item>
+        <item>
+          <linkId value="D50"/>
+          <text value="Imaging and Diagnostic Studies" />
+          <type value="group"/>
+          <item>
+            <!-- Need to use another item as display to get the description text from the original in -->
+            <linkId value="F10"/>
+            <text value="Images and diagnostic studies older than one year are not considered for inclusion in this documentation template.
+              For this documentation template, the following information should be included, if available from the prior 1 year.
+              Image and result text should be attached automatically if they are is provided for the 12-Lead Electrocardiogram Interpretation field." />
+            <type value="display"/>
+          </item>
+          <!-- enter Imaging and Diagnostic questions here -->
+        </item>
+      </item>
+    </item>
+  </item>
+</Questionnaire>
