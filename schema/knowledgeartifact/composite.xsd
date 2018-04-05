@@ -20,12 +20,12 @@
 			<xs:element name="controlBlock" type="ControlBlock" minOccurs="0">
 				<xs:annotation/>
 			</xs:element>
-			<xs:element name="manifest" type="Manifest">
+			<xs:element name="manifest" type="Manifest" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Provides a summary location and content metadata and a single access point for stream</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="containedArtifacts" type="ContainedArtifact" minOccurs="1">
+			<xs:element name="containedArtifacts" type="ContainedArtifactList" minOccurs="1">
 				<xs:annotation/>
 			</xs:element>
 		</xs:sequence>
@@ -51,11 +51,24 @@
 			<xs:element name="mapping" type="MappingType" minOccurs="0">
 				<xs:annotation/>
 			</xs:element>
-			<xs:element name="controllingArtifact" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>The artifact which acts as the principle orchestrator/controller of the composite.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
+			<xs:choice>
+				<xs:element name="controllingArtifact" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The artifact which acts as the principle orchestrator/controller of the composite.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="id" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="initialArtifact" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>The artifacts which which are initially activated </xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="id" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="MappingType">
@@ -71,24 +84,37 @@
 			<xs:element name="artifactSummary" type="ArtifactSummary"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="ContainedArtifactList">
+		<xs:sequence>
+			<xs:element name="artifact" type="ContainedArtifact" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="ContainedArtifact">
 		<xs:annotation>
 			<xs:documentation>Set of contained artifacts</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="artifactType" type="ArtifactType">
-				<xs:annotation/>
+			<xs:element name="artifactType">
+				<xs:complexType>
+					<xs:attribute name="value" type="CompondArtifactType" use="required"/>
+				</xs:complexType>
 			</xs:element>
 			<xs:element name="name">
 				<xs:annotation/>
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:string" use="required"/>
+				</xs:complexType>
 			</xs:element>
-			<xs:element name="identifier">
+			<xs:element name="identifier" minOccurs="1">
+				<xs:annotation/>
+				<xs:complexType>
+					<xs:attribute name="value" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="inclusionCriteria" minOccurs="0">
 				<xs:annotation/>
 			</xs:element>
-			<xs:element name="inclusionCriteria">
-				<xs:annotation/>
-			</xs:element>
-			<xs:element name="context" type="Context">
+			<xs:element name="context" type="Context" minOccurs="0">
 				<xs:annotation/>
 			</xs:element>
 			<xs:element name="eventBinding" type="EventBinding" minOccurs="0">
@@ -98,18 +124,18 @@
 				<xs:annotation/>
 			</xs:element>
 			<xs:choice maxOccurs="unbounded">
+				<xs:element name="wrappedContent" type="WrappedContent">
+					<xs:annotation/>
+				</xs:element>
 				<xs:element name="reference" type="Reference">
 					<xs:annotation/>
 				</xs:element>
 				<xs:element name="knowledgeDocument" type="KnowledgeDocument">
 					<xs:annotation/>
 				</xs:element>
-				<xs:element name="wrappedContent" type="WrappedContent">
-					<xs:annotation/>
-				</xs:element>
 			</xs:choice>
 			<xs:element name="mustUnderstand" minOccurs="0"/>
-			<xs:element name="OnCompletion" type="Event" minOccurs="0"/>
+			<xs:element name="onCompletion" type="Completion" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="Context">
@@ -122,12 +148,17 @@
 			<xs:documentation>Summary of a single contained or referenced artifact</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Name"/>
-			<xs:element name="Identifier"/>
-			<xs:element name="ArtifactType"/>
-			<xs:element name="Size"/>
-			<xs:element name="Hash"/>
-			<xs:element name="Signatures"/>
+			<xs:element name="name"/>
+			<xs:element name="identifier"/>
+			<xs:element name="artifactType"/>
+			<xs:element name="size"/>
+			<xs:element name="hash"/>
+			<xs:element name="signatures"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReferenceList">
+		<xs:sequence>
+			<xs:element name="reference" type="Reference" minOccurs="1" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="Reference">
@@ -135,11 +166,17 @@
 			<xs:documentation>Reference to an Artifact outside of the packing of the composite.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="url">
+			<xs:element name="url" minOccurs="1" maxOccurs="1">
 				<xs:annotation/>
+				<xs:complexType>
+					<xs:attribute name="address" type="xs:string" use="required"/>
+				</xs:complexType>
 			</xs:element>
-			<xs:element name="contentHash">
+			<xs:element name="contentHash" minOccurs="0" maxOccurs="1">
 				<xs:annotation/>
+				<xs:complexType>
+					<xs:attribute name="hashvalue" type="xs:string" use="optional"/>
+				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
@@ -194,8 +231,11 @@
 	<xs:complexType name="EventBinding">
 		<xs:annotation/>
 		<xs:sequence>
-			<xs:element name="bindingModel" type="xs:string">
+			<xs:element name="bindingModel">
 				<xs:annotation/>
+				<xs:complexType>
+					<xs:attribute name="model" type="xs:string" use="optional" default="Encapsulated"/>
+				</xs:complexType>
 			</xs:element>
 			<xs:element name="incomingBindings" type="SpecificEventBinding" minOccurs="0"/>
 			<xs:element name="outgoingBindings" type="SpecificEventBinding" minOccurs="0"/>
@@ -205,16 +245,23 @@
 	<xs:complexType name="ComponentEventMappings">
 		<xs:sequence>
 			<xs:element name="componentId" minOccurs="1"/>
-			<xs:element name="binding" minOccurs="1"/>
+			<xs:element name="binding" minOccurs="1">
+				<xs:complexType>
+					<xs:attribute name="model" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="ComponentEventBinding">
 		<xs:annotation/>
 		<xs:sequence>
-			<xs:element name="bindingModel" type="xs:string">
+			<xs:element name="bindingModel">
 				<xs:annotation>
 					<xs:documentation>Shared, Encapsulated</xs:documentation>
 				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="model" type="xs:string" use="required"/>
+				</xs:complexType>
 			</xs:element>
 			<xs:element name="componentId" type="xs:string" minOccurs="1" maxOccurs="1"/>
 			<xs:element name="incomingBindings" type="SpecificEventBinding" minOccurs="0"/>
@@ -233,6 +280,9 @@
 					<xs:documentation>Recast, Passthru, Suppress, Filter, Restates
 				</xs:documentation>
 				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="binding" type="xs:string" use="required"/>
+				</xs:complexType>
 			</xs:element>
 			<xs:element name="ComponentEvent" type="xs:string">
 				<xs:annotation/>
@@ -243,8 +293,11 @@
 	<xs:complexType name="SpecificMetadataBinding">
 		<xs:annotation/>
 		<xs:sequence>
-			<xs:element name="bindingType" type="MetadataBindingType">
+			<xs:element name="bindingType">
 				<xs:annotation/>
+				<xs:complexType>
+					<xs:attribute name="binding" type="MetadataBindingType" use="required"/>
+				</xs:complexType>
 			</xs:element>
 			<xs:element name="metadata" type="Metadata">
 				<xs:annotation/>
@@ -259,5 +312,21 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="Event"/>
+	<xs:complexType name="Completion">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="eventDefinition" type="NamedEventDef"/>
+				<xs:element name="actionGroup" type="ActionGroup"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NamedEventDef">
+		<xs:sequence>
+			<xs:element name="eventName">
+				<xs:complexType>
+					<xs:attribute name="name" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 </xs:schema>
