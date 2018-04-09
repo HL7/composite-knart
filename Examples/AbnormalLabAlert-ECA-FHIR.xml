@@ -8,6 +8,29 @@
          
       </div>
   </text>
+   <contained>
+      <CommunicationRequest>
+         <id value="AbnormalLabAlert"/>
+         <text>
+            <status value="generated"/>
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>Notify the clinical provider of the noncritical abnormal laboratory test result through the laboratory management system</p>
+               
+            </div>
+         </text>
+         <status value="active"/>
+         <category>
+            <coding>
+               <system value="http://hl7.org/fhir/communication-category"/>
+               <code value="alert"/>
+            </coding>
+         </category>
+         <priority value="routine"/>
+         <payload>
+            <contentString value="Communicate abnormal lab result to the clinical provider for the abnormal lab value."/>
+         </payload>
+      </CommunicationRequest>
+   </contained>
    <url value="http://va.gov/kas/orderset/O1-AbnormalLabAlert-ECA-OS"/>
   <identifier>
      <!--identifierName="O5" -->
@@ -131,7 +154,7 @@
             <!-- Source was a Clinical Statement; for FHIR types we want a DiagnosticReport -->
             <type value="DiagnosticReport"/>
             <codeFilter>
-               <path value="figure out what goes here"/>
+               <path value="code"/>
                <valuesetCanonical value="http://snomed.info/sct"/>
                <code>
                   <system value="http://snomed.info/sct"/>
@@ -144,8 +167,7 @@
      <condition>
         <kind value="applicability"/>
         <description value="Abnormal laboratory result query, Value outside of defined normal reference range for test"/>
-        <!-- The elm expresssion in the source does result in a boolean, even though the name might imply otherwise -->
-        <expression value="AbnormalLabAlertLogic.abnormalLabResultQuery" />
+        <expression value="Exists(AbnormalLabAlertLogic.abnormalLabResultQuery)" />
      </condition>
      <action>
         <title value="Primary Care: Abnormal Laboratory Value Alerts"/>
