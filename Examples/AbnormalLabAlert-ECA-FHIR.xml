@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?><PlanDefinition xmlns="http://hl7.org/fhir">
+  <id value="O1-AbnormalLabAlert-ECA-KNART"/>
+  <!-- TODO: The text narrative below is generated from the structure,  -->
+  <text>
+    <status value="generated"/>
+    <div xmlns="http://www.w3.org/1999/xhtml">
+        <!-- need to add xhtml markup of structure-->
+         
+      </div>
+  </text>
+   <url value="http://va.gov/kas/orderset/O1-AbnormalLabAlert-ECA-OS"/>
+  <identifier>
+     <!--identifierName="O5" -->
+    <use value="official"/>
+     <system value="urn:va.gov:kbs:knart:artifact:r1"/>
+     <value value="87c046d0-0c41-542b-9d56-2e0207194fa2"/>
+  </identifier>
+   <!--other identifiers stripped out -->
+   <version value="1.0"/>
+   <name value="AbnormalLaboratoryValueAlertsRule"/>
+   <title value="Abnormal Laboratory Value Alerts Rule"/>
+  <type>
+    <coding>
+      <system value="http://hl7.org/fhir/plan-definition-type"/>
+      <code value="eca-rule"/>
+      <display value="ECA Rule"/>
+    </coding>
+  </type> 
+  <status value="active"/>
+  <date value="2018-03-23"/>
+  <publisher value="Department of Veterans Affairs"/>
+    
+  <useContext>
+    <code>
+      <system value="http://hl7.org/fhir/usage-context-type"/>
+      <code value="age"/>
+         <display value="Age Range"/>
+    </code>
+    <!-- source has description = All, need to think about how to reprsent that-->
+     <valueCodeableConcept>
+        <text value="All"/>
+     </valueCodeableConcept>
+  </useContext>
+   <useContext>
+      <code>
+         <system value="http://hl7.org/fhir/usage-context-type"/>
+         <code value="venue"/>
+          <display value="Clinical Venue"/>
+      </code>
+      <valueCodeableConcept>
+         <text value="All"/>
+      </valueCodeableConcept>
+   </useContext>
+   <useContext>
+      <code>
+         <system value="http://hl7.org/fhir/usage-context-type"/>
+         <code value="gender"/>
+         <display value="Patient Gender" />
+      </code>
+      <valueCodeableConcept>
+         <text value="All"/>
+      </valueCodeableConcept>
+   </useContext>
+   <useContext>
+      <code>
+         <system value="http://hl7.org/fhir/usage-context-type"/>
+         <code value="workflow"/>
+         <display value="Workflow Setting"/>
+      </code>
+      <valueCodeableConcept>
+         <text value="All"/>
+      </valueCodeableConcept>
+   </useContext>
+   
+  <usage value="The Cardiology chest pain (CP) and coronary artery disease (CAD) group of KNARTs are intended to assist primary care providers in the management of adult patients with stable chest pain (with or without known CAD); aid in determining when a cardiology consultation is appropriate; provide guidance for initial noninvasive diagnostic orders (stress testing) and provide a structured documentation template for the process. Stable patients with cardiac chest pain require risk stratification, office-based workup, initiation of disease-specific medications, and subspecialty referral to a cardiologist. This context excludes emergent patients (new/ongoing/unstable pattern CP). Included are those patients with stable CP with or without known CAD, to be considered for evaluation by cardiology."/>
+  <copyright value="&#xA9; Copyright Cognitive Medical Systems, Inc. 9444 Waples Street Suite 300 San Diego, CA 92121"/>
+  <approvalDate value="2018-03-23"/>
+  <lastReviewDate value="2017-02-05"/>
+   
+   <contributor>
+    <type value="author"/>
+    <name value="Angela Denietolis MD"/>
+     <!-- No place for affiliation in the contributor, left here as comments
+        <affiliation>
+               <name
+                 Primary Care Physician, James A. Haley Veterans Hospital, Tampa VAMC, Tampa, FL 33612"
+                        />
+           </affiliation> -->
+  </contributor>
+  <contributor>
+     <type value="author"/>
+     <name value="Pat Dumas RN"/> 
+     <!-- No place for affiliation in the contributor, left here as comments    
+     <affiliation>
+        <name
+           value="Clinical Program Director, VACO, 810 Vermont Ave NW, Washington, DL 20420"
+        />
+     </affiliation> -->
+  </contributor>
+  <contributor>
+      <type value="author"/>
+      <name value="Manish Merchant MD"/> 
+      <!-- No place for affiliation in the contributor, left here as comments    
+     <affiliation>
+        <name
+           value="Health Informatician, Albany VAMC, 113 Holland Ave., Albany, NY 12208" />
+     </affiliation> -->
+   </contributor>
+  <!-- Other contributors skipped for brevity -->
+ 
+   <relatedArtifact>
+      <!-- need an identifier field for the localDocBook identifier of the Whitepaper -->
+    <type value="derived-from"/>
+      <display value="Primary Care: Abnormal and Panic Laboratory Value Alerts Clinical Content White Paper"/>
+    <url value="NEED A URL HERE"/>
+  </relatedArtifact>
+   
+  <!-- skipped encoding the supportingEvidence relatedArtifacts. See Order Set for examples -->
+
+<!-- the expressions section from the source ends up as a CQL query in the libray below -->
+   <library>
+    <reference value="Library/abnormalLabAlert-logic"/>
+    <display value="AbnormalLabAlertLogic"/>
+  </library>
+  <!--  Actions  -->
+  <action>
+      <title value="Primary Care: Abnormal Laboratory Value Alerts"/> 
+      <trigger>
+         <type value="data-added"/>
+         <data>
+            <!-- Source was a Clinical Statement; for FHIR types we want a DiagnosticReport -->
+            <type value="DiagnosticReport"/>
+            <codeFilter>
+               <path value="figure out what goes here"/>
+               <valuesetCanonical value="http://snomed.info/sct"/>
+               <code>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="15220000 |Laboratory test (procedure)|" />
+                  <display value="Postcoordinated Expression" />
+               </code>
+            </codeFilter>
+         </data>
+      </trigger>
+     <condition>
+        <kind value="applicability"/>
+        <description value="Abnormal laboratory result query, Value outside of defined normal reference range for test"/>
+        <!-- The elm expresssion in the source does result in a boolean, even though the name might imply otherwise -->
+        <expression value="AbnormalLabAlertLogic.abnormalLabResultQuery" />
+     </condition>
+     <action>
+        <title value="Primary Care: Abnormal Laboratory Value Alerts"/>
+        <description value="Primary Care: Abnormal Laboratory Value Alerts"/>
+        <textEquivalent value="Notify the clinical provider of the noncritical abnormal laboratory test result through the laboratory management system"/>
+        <type value="create"/>
+        <definition>
+           <reference value="#AbnormalLabAlert"/>
+        </definition>
+     </action>
+  </action>
+</PlanDefinition>

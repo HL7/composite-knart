@@ -430,16 +430,7 @@
      <system value="urn:va.gov:kbs:knart:artifact:r1"/>
      <value value="bb7ccea6-9744-4743-854a-bcffd87191f6"/>
   </identifier>
-   <!--identifierName="Contract: VA118-16-D-1008, Task Order (TO): VA-118-16-F-1008-0007, CLIN0004AG" -->
-   <identifier>
-      <system value="urn:va.gov:kbs:contract:VA118-16-D-1008:to:VA-118-16-F-1008-0007"/>
-      <value value="CLIN0004AG"/>
-   </identifier>
-   <!--identifierName="Jira KP-914" -->
-   <identifier>
-      <system value="urn:cognitivemedicine.com:lab:jira"/>
-      <value value="KP-914"/>
-   </identifier>
+   <!--other identifiers stripped out -->
   <version value="0.1"/>
   <name value="ChestPainCoronaryArteryDiseaseOrderSetKNART"/>
   <title value="Chest Pain (CP) - Coronary Artery Disease (CAD) Order Set KNART"/>
@@ -475,9 +466,10 @@
     </valueCodeableConcept>
   </useContext>
    
-   <usage value="The Cardiology chest pain (CP) and coronary artery disease (CAD) group of KNARTs are intended to assist primary care providers in the management of adult patients with stable chest pain (with or without known CAD); aid in determining when a cardiology consultation is appropriate; provide guidance for initial noninvasive diagnostic orders (stress testing) and provide a structured documentation template for the process. Stable patients with cardiac chest pain require risk stratification, office-based workup, initiation of disease-specific medications, and subspecialty referral to a cardiologist. This context excludes emergent patients (new/ongoing/unstable pattern CP). Included are those patients with stable CP with or without known CAD, to be considered for evaluation by cardiology."/>
+  <usage value="The Cardiology chest pain (CP) and coronary artery disease (CAD) group of KNARTs are intended to assist primary care providers in the management of adult patients with stable chest pain (with or without known CAD); aid in determining when a cardiology consultation is appropriate; provide guidance for initial noninvasive diagnostic orders (stress testing) and provide a structured documentation template for the process. Stable patients with cardiac chest pain require risk stratification, office-based workup, initiation of disease-specific medications, and subspecialty referral to a cardiologist. This context excludes emergent patients (new/ongoing/unstable pattern CP). Included are those patients with stable CP with or without known CAD, to be considered for evaluation by cardiology."/>
+  <copyright value="&#xA9; Copyright Cognitive Medical Systems, Inc. 9444 Waples Street Suite 300 San Diego, CA 92121"/>
   
-  <contributor>
+   <contributor>
     <type value="author"/>
     <name value="Bruce Bray MD"/>
      <!-- No place for affiliation in the contributor, left here as comments
@@ -508,7 +500,7 @@
            value="Professor of Medicine, Wayne State University; Section Chief, Cardiology, John Dingell VAMC" />
      </affiliation> -->
    </contributor>
-   <copyright value="&#xA9; Copyright Cognitive Medical Systems, Inc. 9444 Waples Street Suite 300 San Diego, CA 92121"/>
+  
  
    <relatedArtifact>
     <type value="derived-from"/>
