@@ -272,7 +272,7 @@
 	<xs:complexType name="SpecificEventBinding">
 		<xs:annotation/>
 		<xs:sequence minOccurs="0" maxOccurs="unbounded">
-			<xs:element name="ConatinerEvent" type="xs:string">
+			<xs:element name="ContainerEvent" type="xs:string">
 				<xs:annotation/>
 			</xs:element>
 			<xs:element name="eventBindingType">
