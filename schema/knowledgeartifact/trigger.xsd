@@ -37,7 +37,7 @@
 						'triggers' the knowledge artifact. For instance, 'evaluate this
 						artifact whenever a new Problem with a Diabetes Diagnosis code is
 						added to the patient's record' or 'Evaluate this artifact every
-						week day at 10:00 PM'. A trigger can model either a data event or
+						week day at 10:00 PM'. A trigger can model a data event, a named event, or
 						a periodic event.
 					</xs:documentation>
 				</xs:annotation>
